@@ -1,6 +1,5 @@
 package com.kamged.kmovies.services;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,7 +14,7 @@ import org.json.JSONObject;
 
 public class OMDbService {
     private static OMDbService instance = null;
-    private static final String APIKEY = ""; // APIKEY is needed, see README.md
+    private static final String APIKEY = "";
     private String _url;
     private RequestQueue _queue;
     private static Context _context;
@@ -81,6 +80,10 @@ public class OMDbService {
     public void MakeOMDBReq(String title, String year, final I_ReqListener<JSONObject> listener)
     {
         CreateJsonObjectReq(Request.Method.GET, BuildRESTUrl(title, year, APIKEY), listener);
+    }
+
+    public boolean CheckKeyStatus() {
+        return (APIKEY.length() > 0 ? true : false);
     }
 
     private String BuildRESTUrl(String par1, String par2, String par3)
