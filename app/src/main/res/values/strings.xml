@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">K!Movies</string>
+    <string name="add_movies_act_title">Create a new movie</string>
+    <string name="add_movies_act_mt">Title</string>
+    <string name="add_movies_act_my">Year</string>
+    <string name="add_movies_act_bt_gmd">Get movie details</string>
+    <string name="add_movies_act_ml">Runtime</string>
+    <string name="add_movies_act_cv">Cover</string>
+    <string name="num_movies">Number of movies: %1$s</string>
+</resources>
