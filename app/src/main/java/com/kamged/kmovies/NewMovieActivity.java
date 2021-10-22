@@ -64,6 +64,11 @@ public class NewMovieActivity extends AppCompatActivity {
         btNewEntry = findViewById(R.id.btNewEntry);
 
         OMDbService.getInstance(this);
+        btGetMovieDetails.setEnabled(OMDbService.getInstance().CheckKeyStatus());
+
+        if(!OMDbService.getInstance().CheckKeyStatus())
+            Toast.makeText(this, "APIKEY is missing", Toast.LENGTH_LONG).show();
+
 
         btGetMovieDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,24 +87,25 @@ public class NewMovieActivity extends AppCompatActivity {
                     @Override
                     public void getResult(JSONObject object) {
                         Log.d("mainac", object.toString());
-                try {
-                    boolean status = MovieService.getInstance().CreateMovie(object);
 
-                    if(status) {
-                        _resMovie = MovieService.getInstance().GetCreatedMovie();
+                        try {
+                            boolean status = MovieService.getInstance().CreateMovie(object);
 
-                        ((TextView) findViewById(R.id.tvOV_MovieTitle)).setText(_resMovie.get_title());
-                        ((TextView) findViewById(R.id.tvOV_MovieYear)).setText(_resMovie.get_year());
-                        ((TextView) findViewById(R.id.tvOV_MovieLength)).setText(_resMovie.get_runtime());
+                                if(status) {
+                                    _resMovie = MovieService.getInstance().GetCreatedMovie();
 
-                        Picasso.get().load(_resMovie.get_coverUrl()).into(imMovieCover);
-                    }
+                                    ((TextView) findViewById(R.id.tvOV_MovieTitle)).setText(_resMovie.get_title());
+                                    ((TextView) findViewById(R.id.tvOV_MovieYear)).setText(_resMovie.get_year());
+                                    ((TextView) findViewById(R.id.tvOV_MovieLength)).setText(_resMovie.get_runtime());
 
-                    btCreateMovie.setVisibility(v.VISIBLE);
+                                    Picasso.get().load(_resMovie.get_coverUrl()).into(imMovieCover);
+                        }
 
-                } catch (Exception e) {
-                    throw  new RuntimeException(e);
-                }
+                        btCreateMovie.setVisibility(v.VISIBLE);
+
+                        } catch (Exception e) {
+                            throw  new RuntimeException(e);
+                        }
                     }
                 });
 
